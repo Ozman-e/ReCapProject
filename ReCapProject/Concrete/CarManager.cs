@@ -61,15 +61,6 @@ namespace Business.Concrete
             return _carDal.Get(c => c.Id == id);
         }
 
-        public void Update(Car car)
-        {
-            if (car.DailyPrice > 0)
-            {
-                _carDal.Update(car);
-                Console.WriteLine("Arabanız güncellenmiştir.");
-            }
-        }
-
         public void Updated(Car car)
         {
             if (car.DailyPrice > 0)
