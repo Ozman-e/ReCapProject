@@ -1,6 +1,7 @@
 ﻿using Business.Abstract;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -13,6 +14,9 @@ namespace Business.Concrete
         public CarManager(ICarDal carDal)
         {
             _carDal = carDal;
+            new Car {BrandId=1, Description="2016 audi a6", DailyPrice=100, ModelYear=2016};
+
+
 
         }
 
@@ -35,30 +39,31 @@ namespace Business.Concrete
             Console.WriteLine("Aracınız başarıyla silinmiştir.");
         }
 
-        public List<Car> Getall()
+        public List<Car> GetAll()
         {
             ////...
             return _carDal.GetAll();
         }
 
-        public List<Car> GetAllByBrandId(string id)
+        public List<Car> GetAllByBrandId(int id)
         {
             return _carDal.GetAll(c => c.BrandId == id);
         }
 
-        public IEnumerable<object> GetAllByColorId(int v)
-        {
-            throw new NotImplementedException();
-        }
 
         public List<Car> GetAllByModelYear(int year)
         {
             return _carDal.GetAll(c => c.ModelYear == year);
         }
 
-        public Car GetById(string id)
+        public Car GetById(int id)
         {
-            return _carDal.Get(c => c.Id == id);
+           return _carDal.Get(c => c.Id == id);
+        }
+
+        public List<CarDetailDto> GetCarDetails()
+        {
+            return _carDal.GetCarDetails();
         }
 
         public void Updated(Car car)

@@ -39,7 +39,7 @@ namespace Business.Concrete
             return _brandDal.GetAll();
         }
 
-        public Brand GetByBrandId(string id)
+        public Brand GetByBrandId(int id)
         {
             return _brandDal.Get(c => c.BrandId == id); ;
 
@@ -57,11 +57,6 @@ namespace Business.Concrete
             }
         }
 
-        public void GetByBrandId(Brand brandId)
-        {
-            throw new NotImplementedException();
-        }
 
-        
     }
 }

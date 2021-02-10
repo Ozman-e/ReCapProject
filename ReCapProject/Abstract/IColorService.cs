@@ -13,6 +13,6 @@ namespace Business.Abstract
 
         List<Color> GetAll();
 
-        Color GetByColorId(string id);
+        Color GetByColorId(int id);
     }
 }

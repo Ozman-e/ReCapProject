@@ -30,7 +30,7 @@ namespace Business.Concrete
              return _colorDal.GetAll();
         }
 
-        public Color GetByColorId(string id)
+        public Color GetByColorId(int id)
         {
             return _colorDal.Get(c => c.ColorId == id);
         }
@@ -39,5 +39,6 @@ namespace Business.Concrete
         {
             _colorDal.Update(color);
         }
+
     }
 }
