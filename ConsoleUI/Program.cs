@@ -10,8 +10,9 @@ namespace ConsoleUI
         static void Main(string[] args)
         {
             CarManager carManager = new CarManager(new EfCarDal());
+            Console.WriteLine(" ModelYear - BrandName - Description - ColorName");
             var result = carManager.GetCarDetails();
-            if (result.Success)
+            if (result.Success==true)
             {
                 foreach (var car in result.Data)
                 {
@@ -30,16 +31,40 @@ namespace ConsoleUI
 
             Console.WriteLine("Stokta olan markalar");
             BrandManager brandManager = new BrandManager(new EfBrandDal());
-            foreach (var brand in brandManager.GetAll())
+            var resultt = brandManager.GetAll();
+            if (resultt.Success==true)
             {
-                Console.WriteLine(brand.BrandName);
+                foreach (var brand in result.Data)
+                {
+                    Console.WriteLine(brand.BrandName);
+                }
+
             }
+            else
+            {
+                Console.WriteLine(result.Message);
+            }
+            
             Console.WriteLine("Renk seçenekleri");
             ColorManager colorManager = new ColorManager(new EfColorDal());
-            foreach (var color in colorManager.GetAll())
+            var resulttt = colorManager.GetAll();
+            if (resulttt.Success==true)
             {
-                Console.WriteLine(color.ColorName);
+                foreach (var color in result.Data)
+                {
+                    Console.WriteLine(color.ColorName);
+                }
             }
+            else
+            {
+                Console.WriteLine(result.Message);
+            }
+
+            
+            
+
+
+            
 
             
             

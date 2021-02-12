@@ -14,6 +14,6 @@ namespace Business.Abstract
 
         IDataResult<List<Color>> GetAll();
 
-        IDataResult<Color>etByColorId(int id);
+        IDataResult<Color>GetByColorId(int id);
     }
 }
