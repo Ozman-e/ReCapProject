@@ -10,6 +10,14 @@ namespace ConsoleUI
         static void Main(string[] args)
         {
             CarManager carManager = new CarManager(new EfCarDal());
+            BrandManager brandManager = new BrandManager(new EfBrandDal());
+            ColorManager colorManager = new ColorManager(new EfColorDal());
+            CustomerManager customerManager = new CustomerManager(new EfCustomerDal());
+            RentalManager rentalManager = new RentalManager(new EfRentalDal());
+            UserManager userManager = new UserManager(new EfUserDal());
+
+
+
             Console.WriteLine(" ModelYear - BrandName - Description - ColorName");
             var result = carManager.GetCarDetails();
             if (result.Success==true)
@@ -29,8 +37,7 @@ namespace ConsoleUI
                 
             
 
-            Console.WriteLine("Stokta olan markalar");
-            BrandManager brandManager = new BrandManager(new EfBrandDal());
+            Console.WriteLine("Stokta olan markalar"); 
             var resultt = brandManager.GetAll();
             if (resultt.Success==true)
             {
@@ -46,7 +53,6 @@ namespace ConsoleUI
             }
             
             Console.WriteLine("Renk seçenekleri");
-            ColorManager colorManager = new ColorManager(new EfColorDal());
             var resulttt = colorManager.GetAll();
             if (resulttt.Success==true)
             {
