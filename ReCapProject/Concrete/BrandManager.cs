@@ -45,7 +45,7 @@ namespace Business.Concrete
             
         }
 
-        public IResult Updated(Brand brand)
+        public IResult Update(Brand brand)
         {
             if (brand.BrandName.Length > 2)
             {

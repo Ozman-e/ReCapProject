@@ -71,7 +71,7 @@ namespace Business.Concrete
             //return _carDal.GetCarDetails();
         }
 
-        public IResult Updated(Car car)
+        public IResult Update(Car car)
         {
             if (car.DailyPrice > 0)
             {
