@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Text;
 using Business.ValidationRules.FluentValidation;
 using Core.CrosCuttingConcerns.Validation;
+using Core.Aspects.Autofac.Validation;
 
 namespace Business.Concrete
 {
@@ -19,9 +20,10 @@ namespace Business.Concrete
             _brandDal = brandDal;
 
         }
+
+        [ValidationAspect(typeof(BrandValidator))]
         public IResult Add(Brand brand)
         {
-            ValidationTool.Validate(new BrandValidator(),brand);
             _brandDal.Add(brand);
             return new SuccessResult(Messages.BrandAdded);
 
@@ -47,7 +49,6 @@ namespace Business.Concrete
 
         public IResult Update(Brand brand)
         {
-            ValidationTool.Validate(new BrandValidator(), brand);
             _brandDal.Update(brand);
             return new SuccessResult(Messages.BrandUpdated);
         }

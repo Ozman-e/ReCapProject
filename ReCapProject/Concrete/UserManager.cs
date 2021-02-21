@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Text;
 using Business.ValidationRules.FluentValidation;
 using Core.CrosCuttingConcerns.Validation;
+using Core.Aspects.Autofac.Validation;
 
 namespace Business.Concrete
 {
@@ -19,9 +20,10 @@ namespace Business.Concrete
             _userDal = userDal;
 
         }
+
+        [ValidationAspect(typeof(UserValidator))]
         public IResult Add(User user)
         {
-            ValidationTool.Validate(new UserValidator(),user);
             _userDal.Add(user);
             return new SuccessResult(Messages.UserAdded);
         }
@@ -45,7 +47,6 @@ namespace Business.Concrete
 
         public IResult Update(User user)
         {
-            ValidationTool.Validate(new UserValidator(), user);
             _userDal.Update(user);
             return new SuccessResult(Messages.UserUpdated);
         }
