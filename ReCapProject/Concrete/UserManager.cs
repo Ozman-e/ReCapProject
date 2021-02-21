@@ -6,6 +6,8 @@ using Entities.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Business.ValidationRules.FluentValidation;
+using Core.CrosCuttingConcerns.Validation;
 
 namespace Business.Concrete
 {
@@ -19,13 +21,9 @@ namespace Business.Concrete
         }
         public IResult Add(User user)
         {
-            if (user.Password.Length > 5)
-            {
-                _userDal.Add(user);
-                return new SuccessResult(Messages.UserAdded);
-
-            }
-            return new ErrorResult(Messages.UserPasswordError);
+            ValidationTool.Validate(new UserValidator(),user);
+            _userDal.Add(user);
+            return new SuccessResult(Messages.UserAdded);
         }
 
         public IResult Delete(User user)
@@ -47,6 +45,7 @@ namespace Business.Concrete
 
         public IResult Update(User user)
         {
+            ValidationTool.Validate(new UserValidator(), user);
             _userDal.Update(user);
             return new SuccessResult(Messages.UserUpdated);
         }

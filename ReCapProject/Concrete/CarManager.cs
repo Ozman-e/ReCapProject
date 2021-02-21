@@ -1,12 +1,17 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
+using Core.CrosCuttingConcerns.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using Entities.DTOs;
+using FluentValidation;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
+using ValidationException = FluentValidation.ValidationException;
 
 namespace Business.Concrete
 {
@@ -16,7 +21,6 @@ namespace Business.Concrete
         public CarManager(ICarDal carDal)
         {
             _carDal = carDal;
-            new Car {BrandId=1, Description="2016 audi a6", DailyPrice=100, ModelYear=2016};
 
 
 
@@ -24,19 +28,17 @@ namespace Business.Concrete
 
         public IResult Add(Car car)
         {
-            if (car.DailyPrice > 0)
-            {
-                _carDal.Add(car);
-                //Console.WriteLine("Aracınız başarıyla eklenmiştir.");
-                return new SuccessResult(Messages.CarAdded);
-            }
-            return new ErrorResult(Messages.CarNameInvalid);
+            
+
+            ValidationTool.Validate(new CarValidator(),car);
+
+            _carDal.Add(car);
+            return new SuccessResult(Messages.CarAdded);
         }
 
         public IResult Delete(Car car)
         {
             _carDal.Delete(car);
-            //Console.WriteLine("Aracınız başarıyla silinmiştir.");
             return new SuccessResult(Messages.CarDeleted);
         }
 
@@ -73,21 +75,10 @@ namespace Business.Concrete
 
         public IResult Update(Car car)
         {
-            if (car.DailyPrice > 0)
-            {
-                _carDal.Update(car);
-                return new SuccessResult(Messages.CarUpdated);
-                //Console.WriteLine("Araba başarıyla güncellendi.");
-            }
-            return new ErrorResult(Messages.CarNameInvalid);
-            
+            ValidationTool.Validate(new CarValidator(), car);
+            _carDal.Update(car);
+            return new SuccessResult(Messages.CarUpdated);
         }
 
-        //List<Car> ICarService.GetAll()
-        //{
-        //    return _carDal.GetAll();
-
-
-        //}
     }
 }
