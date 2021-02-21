@@ -6,6 +6,8 @@ using Entities.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Business.ValidationRules.FluentValidation;
+using Core.CrosCuttingConcerns.Validation;
 
 namespace Business.Concrete
 {
@@ -18,6 +20,7 @@ namespace Business.Concrete
         }
         public IResult Add(Rental rental)
         {
+            ValidationTool.Validate(new RentalValidator(),rental);
             _rentalDal.Add(rental);
             return new SuccessResult(Messages.RentalAdded);
         }
